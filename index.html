@@ -1,38 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
   <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serapeo di Pozzuoli - AR</title>
-    <!-- Script A-Frame e MindAR -->
-    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+    <title>Serapeo di Pozzuoli - 3D & AR</title>
+    <!-- Script Model Viewer di Google -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    <style>
+      body { margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden; }
+      model-viewer { width: 100%; height: 100%; background-color: #f0f0f0; }
+      .ar-button {
+        position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+        padding: 12px 24px; background: #007bff; color: white; border: none;
+        border-radius: 25px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      }
+    </style>
   </head>
-  <body style="margin: 0; overflow: hidden;">
-    
-    <a-scene 
-      mindar-image="imageTargetSrc: ./pianta.mind;" 
-      color-space="sRGB" 
-      renderer="colorManagement: true, physicallyCorrectLights" 
-      vr-mode-ui="enabled: false" 
-      device-orientation-permission-ui="enabled: false">
+  <body>
+
+    <model-viewer 
+      src="copertura.glb" 
+      alt="3D Reconstruction Serapeo di Pozzuoli" 
+      ar 
+      ar-modes="webxr scene-viewer quick-look" 
+      camera-controls 
+      shadow-intensity="1" 
+      auto-rotate>
       
-      <a-assets>
-        <a-asset-item id="modelloSerapeo" src="copertura.glb"></a-asset-item>
-      </a-assets>
+      <button slot="ar-button" class="ar-button">
+        📷 Visualizza nello spazio (AR)
+      </button>
 
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+    </model-viewer>
 
-      <!-- Target 0: Pianta del Caristie -->
-      <a-entity mindar-image-target="targetIndex: 0">
-        <!-- Modello 3D sovrapposto -->
-        <a-gltf-model 
-          src="#modelloSerapeo" 
-          position="0 0 0" 
-          rotation="0 0 0" 
-          scale="1 1 1">
-        </a-gltf-model>
-      </a-entity>
-
-    </a-scene>
   </body>
 </html>
